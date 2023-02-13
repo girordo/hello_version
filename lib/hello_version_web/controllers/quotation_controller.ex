@@ -32,4 +32,12 @@ defmodule HelloVersionWeb.QuotationController do
       render(conn, :show, quotation: quotation)
     end
   end
+
+  def delete(conn, %{"id" => id}) do
+    quotation = Content.get_quotation!(id)
+
+    with {:ok, %Quotation{}} <- Content.delete_quotation(quotation) do
+      send_resp(conn, :no_content, "")
+    end
+  end
 end

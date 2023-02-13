@@ -15,6 +15,21 @@ defmodule HelloVersionWeb.Router do
     end
   end
 
+  scope "/api/swagger" do
+    forward "/", PhoenixSwagger.Plug.SwaggerUI,
+      otp_app: :hello_version,
+      swagger_file: "swagger.json"
+  end
+
+  def swagger_info do
+    %{
+      info: %{
+        version: "1.0",
+        title: "Hello Version - Testing Swagger"
+      }
+    }
+  end
+
   # Enable Swoosh mailbox preview in development
   if Application.compile_env(:hello_version, :dev_routes) do
     scope "/dev" do

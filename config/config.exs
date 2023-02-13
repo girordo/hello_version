@@ -56,6 +56,20 @@ config :logger, :console,
   format: "$time $metadata[$level] $message\n",
   metadata: [:request_id]
 
+# Use Swagger using the generator
+config :hello_version, :phoenix_swagger,
+  swagger_files: %{
+    "priv/static/swagger.json" => [
+      # phoenix routes will be converted to swagger paths
+      router: HelloVersionWeb.Router,
+      # (optional) endpoint config used to set host, port and https schemes.
+      endpoint: HelloVersionWeb.Endpoint
+    ]
+  }
+
+# If you dont use Poison
+config :phoenix_swagger, json_library: Jason
+
 # Use Jason for JSON parsing in Phoenix
 config :phoenix, :json_library, Jason
 
